@@ -3,7 +3,7 @@ import { Item } from './styled';
 import { Link } from 'react-router-dom';
 
 
-const adItem = (props: any) => {
+const AdItem = (props: any) => {
 
   let price = '';
 
@@ -28,4 +28,4 @@ const adItem = (props: any) => {
 
 };
 
-export default adItem;
+export default AdItem;

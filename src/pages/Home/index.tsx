@@ -17,6 +17,8 @@ export const Home = () => {
   const [categories, setCategories] = useState<string[]>([]);
   const [adList, setAdList] = useState([]);
 
+ 
+
 
   useEffect(() => {
     const getStates = async () => {
@@ -24,7 +26,6 @@ export const Home = () => {
       setStateList(sList);
     }
     getStates();
-
   }, []);
 
   useEffect(() => {

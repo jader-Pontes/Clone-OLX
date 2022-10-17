@@ -1,39 +1,32 @@
 import Cookies from "js-cookie";
 import React from "react";
 import qs from "qs";
-import { AutomaticPrefetchPlugin } from "webpack";
 
 
-const BASEAPI: string = 'https://api.b7web.com.br/ping/';
+const BASEAPI: string = "http://alunos.b7web.com.br:501";
 
 
 const apiGet = async (endpoint: string, body: any = []) => {
   if (!body.token) {
-
     let token = Cookies.get('token');
     if (token) {
       body.token = token;
     };
-
   };
 
-
   const res = await fetch(`{BASEAPI + endpoint}?${qs.stringify(body)}`)
-
   const json = await res.json()
 
   if (json.notallowed) {
     window.location.href = '/signin'
     return;
   }
-
   return json;
 }
 
 
 const apiPost = async (endpoint: string, body: any = []) => {
   if (!body.token) {
-
     let token = Cookies.get('token');
     if (token) {
       body.token = token;
@@ -41,7 +34,7 @@ const apiPost = async (endpoint: string, body: any = []) => {
   };
 
   const res = await fetch(BASEAPI + endpoint, {
-    method: "Post",
+    method: "POST",
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
@@ -54,7 +47,6 @@ const apiPost = async (endpoint: string, body: any = []) => {
     window.location.href = '/signin';
     return;
   }
-
   return json;
 }
 
@@ -78,7 +70,7 @@ const OlxAPI = {
   },
   getState: async () => {
     const json = await apiGet(
-      '/states'
+      '/states',
     );
     return json.states;
   },
@@ -94,7 +86,15 @@ const OlxAPI = {
       options
     );
     return json;
+  },
+  getAd:async(id:string,other=false)=>{
+    const json = await apiGet(
+      '/ad/item',
+      {id,other}
+    )
+    return json;
   }
+
 };
 
 export default () => OlxAPI;
