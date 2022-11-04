@@ -10,7 +10,7 @@ import AdItem from '../../components/partials/adItem';
 
 
 
-const AdPage = () => {
+export const AdPage = () => {
 
   const api = useApi();
   const { id } = useParams();
@@ -129,4 +129,3 @@ const AdPage = () => {
 
 };
 
-export default AdPage;

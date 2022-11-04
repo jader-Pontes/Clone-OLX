@@ -8,7 +8,7 @@ import { PageContainer, PageTitle, ErrorMessage } from '../../components/MainCom
 import useApi from '../../helpers/OlxApi';
 import { doLogin } from '../../helpers/authHandler';
 
-const SignIn = () => {
+export const SignIn = () => {
 
   const api = useApi();
   const navigate = useNavigate()
@@ -94,4 +94,3 @@ const SignIn = () => {
 
 };
 
-export default SignIn;

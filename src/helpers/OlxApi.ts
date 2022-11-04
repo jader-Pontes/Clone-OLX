@@ -1,10 +1,8 @@
 import Cookies from "js-cookie";
-import React from "react";
+import react from "react";
 import qs from "qs";
 
-
 const BASEAPI: string = "http://alunos.b7web.com.br:501";
-
 
 const apiGet = async (endpoint: string, body: any = []) => {
   if (!body.token) {
@@ -29,7 +27,7 @@ const apiPost = async (endpoint: string, body: any = []) => {
   if (!body.token) {
     let token = Cookies.get('token');
     if (token) {
-      body.token = token;
+      body.append('token',token);
     };
   };
 
@@ -43,12 +41,40 @@ const apiPost = async (endpoint: string, body: any = []) => {
   });
   const json = await res.json()
 
+
   if (json.notallowed) {
     window.location.href = '/signin';
     return;
   }
   return json;
 }
+
+  const apiFile= async(endpoint:string,body:any)=>{
+    if (!body.token) {
+      let token = Cookies.get('token');
+      if (token) {
+        body.token = token;
+      };
+    };
+  
+    const res = await fetch(BASEAPI + endpoint, {
+      method: "POST",
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(body),
+    });
+    const json = await res.json()
+  
+    if (json.notallowed) {
+      window.location.href = '/signin';
+      return;
+    }
+    return json;
+
+}
+
 
 
 const OlxAPI = {
@@ -93,6 +119,14 @@ const OlxAPI = {
       {id,other}
     )
     return json;
+  },
+   addAd:async(fData:FormData)=>{
+
+    const json=await apiFile(
+          'ad/add',
+          fData
+    );
+        return json;
   }
 
 };
